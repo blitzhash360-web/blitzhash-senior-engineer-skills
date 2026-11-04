@@ -86,3 +86,16 @@ test('CLI: --json, --fail-under and --help', async () => {
     assert.match(out, /read-only/);
   } finally { rmSync(base, { recursive: true, force: true }); }
 });
+
+test('CLI runs when invoked through a symlink (npx / node_modules/.bin)', async () => {
+  const { mkdtempSync, symlinkSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join, resolve } = await import('node:path');
+  const { spawnSync } = await import('node:child_process');
+  const d = mkdtempSync(join(tmpdir(), 'bh-link-'));
+  const link = join(d, 'bh-preflight');
+  symlinkSync(resolve('bin/bh-preflight.mjs'), link);
+  const r = spawnSync(process.execPath, [link, '--help'], { encoding: 'utf8' });
+  assert.equal(r.status, 0);
+  assert.match(r.stdout, /bh-preflight/);
+});

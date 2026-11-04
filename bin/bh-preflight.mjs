@@ -2,6 +2,7 @@
 // bh-preflight: read-only, offline launch-readiness scan of a local project folder.
 import { resolve, basename } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { realpathSync } from 'node:fs';
 import { scanProject, formatReport } from '../lib/preflight.mjs';
 
 const HELP = `bh-preflight: read-only launch-readiness scan of a local project (BlitzHash Senior Engineer Skills)
@@ -35,6 +36,10 @@ export async function main(argv, io = { out: console.log, isTTY: process.stdout.
   return 0;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+// npx/npm run the bin through a symlink (node_modules/.bin), so compare real paths.
+const isEntry = (() => {
+  try { return import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href; } catch { return false; }
+})();
+if (isEntry) {
   main(process.argv.slice(2)).then((code) => process.exit(code), (e) => { console.error(`bh-preflight: ${e.message}`); process.exit(2); });
 }
