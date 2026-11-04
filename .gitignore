@@ -1,0 +1,12 @@
+# Secrets: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.dump
+
+node_modules/
+coverage/
+.DS_Store
+*.log

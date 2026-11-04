@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  skills-lint:
+    name: Skill markdown lint + frontmatter validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate SKILL.md frontmatter, sections and safety rules
+        run: node scripts/validate-skills.mjs
+      - name: Markdown lint
+        run: npx -y markdownlint-cli2@0.24.0
+
+  installer:
+    name: Install script (dry run + end-to-end)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: ShellCheck
+        if: runner.os == 'Linux'
+        run: shellcheck install.sh test/install.test.sh
+      - name: Dry run for every target writes nothing
+        run: |
+          set -euo pipefail
+          for t in claude cursor codex qoder antigravity agents-md all; do
+            p="$(mktemp -d)"
+            ./install.sh --target "$t" --project "$p" --dry-run | tee "$RUNNER_TEMP/dry-$t.txt"
+            grep -q "DRY RUN: nothing was written" "$RUNNER_TEMP/dry-$t.txt"
+            test -z "$(ls -A "$p")"
+          done
+          HOME="$(mktemp -d)" ./install.sh --target all --global --with-ecc --dry-run
+      - name: Installer end-to-end tests (temp folders)
+        run: bash test/install.test.sh
+
+  scanner:
+    name: bh-preflight tests (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["18", "20", "22"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --test test/*.test.mjs
+      - name: Demo + CLI smoke test
+        run: |
+          npm run demo
+          node bin/bh-preflight.mjs --help
+          node bin/bh-preflight.mjs . --json > /dev/null
+      - name: No secrets committed
+        run: |
+          ! git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$'
+          node bin/bh-preflight.mjs . --json | node -e "const r=JSON.parse(require('fs').readFileSync(0,'utf8'));const s=r.checks.find(c=>c.id==='secrets');if(s.status!=='pass'){console.error(s.items);process.exit(1)}"

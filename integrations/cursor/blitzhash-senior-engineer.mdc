@@ -1,0 +1,9 @@
+---
+description: BlitzHash Senior Engineer Skills - production checks (launch readiness, security, scaling, cloud cost, Cloudflare, self-hosting, backups). Use when the user asks if the app is ready to launch, secure, fast enough, too expensive, or backed up.
+alwaysApply: false
+---
+
+Use the matching skill in `.cursor/skills/` before answering:
+`launch-readiness-audit`, `production-security-review`, `scaling-performance-review`, `cloud-cost-cutting`, `cloudflare-hardening`, `self-hosting-migration`, `backup-restore-drill`.
+
+Rules: read-only first; dry run every change and show the exact diff or command; apply only after the user says "yes"; credentials only from the user's environment, scoped, never printed or committed.

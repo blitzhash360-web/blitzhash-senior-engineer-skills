@@ -1,0 +1,56 @@
+{
+  "name": "blitzhash-senior-engineer-skills",
+  "version": "1.0.0",
+  "description": "Production skills for AI coding agents (built on ECC): launch-readiness audit, security review, scaling, cloud cost cutting, Cloudflare hardening, self-hosting and backups. Installer for Claude Code, Cursor, Codex, Qoder, Antigravity and AGENTS.md IDEs.",
+  "type": "module",
+  "bin": {
+    "bh-preflight": "bin/bh-preflight.mjs"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs && bash test/install.test.sh",
+    "validate": "node scripts/validate-skills.mjs",
+    "preflight": "node bin/bh-preflight.mjs",
+    "demo": "node examples/demo.mjs"
+  },
+  "keywords": [
+    "ecc",
+    "claude-code",
+    "cursor",
+    "codex",
+    "agent-skills",
+    "vibe-coding",
+    "launch-readiness",
+    "security",
+    "devops",
+    "cost-optimization"
+  ],
+  "author": "BlitzHash (https://blitzhash.com)",
+  "license": "MIT",
+  "homepage": "https://blitzhash.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blitzhash360-web/blitzhash-senior-engineer-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blitzhash360-web/blitzhash-senior-engineer-skills/issues"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "skills",
+    "agents",
+    "commands",
+    "integrations",
+    "examples",
+    "scripts",
+    "docs",
+    "install.sh",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "LICENSE",
+    "README.md"
+  ]
+}
