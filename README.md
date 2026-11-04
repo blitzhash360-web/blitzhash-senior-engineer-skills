@@ -131,3 +131,5 @@ MIT © BlitzHash. See [LICENSE](LICENSE).
 ---
 
 Built by BlitzHash: need a senior team to check or scale your AI-built app? Free assessment at https://blitzhash.com
+
+Want a second pair of eyes? Book a free 15-minute launch review: https://calendly.com/blitzhash360/free-15-min-launch-review
