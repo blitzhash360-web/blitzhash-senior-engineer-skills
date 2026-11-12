@@ -11,7 +11,13 @@
 Seven production skills, two reviewer agents and four slash commands for founders shipping apps built with Lovable, Bolt, Replit, Cursor or v0, plus `bh-preflight`, a read-only scanner that scores your project out of 100 before real users arrive. Install them alongside ECC (or on their own) with one script that shows every file before it writes anything.
 
 ![bh-preflight on a fake demo app](assets/preflight-demo.png)
-<sub>`bh-preflight` on a fake demo app (`npm run demo`). The keys are fake and the scan never leaves your machine.</sub>
+<sub>`bh-preflight --demo` on a fake demo app. The keys are fake and the scan never leaves your machine.</sub>
+
+**Try it in 10 seconds** (no clone, no install, scans a built-in fake app in a temp folder):
+
+```bash
+npx -y github:blitzhash360-web/blitzhash-senior-engineer-skills --demo
+```
 
 ## Quick start (3 steps)
 

@@ -99,3 +99,12 @@ test('CLI runs when invoked through a symlink (npx / node_modules/.bin)', async 
   assert.equal(r.status, 0);
   assert.match(r.stdout, /bh-preflight/);
 });
+
+test('CLI: --demo scans the built-in fake app and prints no real paths', async () => {
+  let out = '';
+  const io = { out: (s) => { out += s + '\n'; }, isTTY: false };
+  assert.equal(await main(['--demo'], io), 0);
+  assert.match(out, /demo-founder-app/);
+  assert.match(out, /Launch score: \d+\/100/);
+  assert.doesNotMatch(out, /\x1b\[/);
+});

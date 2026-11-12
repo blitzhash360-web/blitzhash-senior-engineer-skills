@@ -4,15 +4,18 @@ import { resolve, basename } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { realpathSync } from 'node:fs';
 import { scanProject, formatReport } from '../lib/preflight.mjs';
+import { runDemo } from '../examples/demo.mjs';
 
 const HELP = `bh-preflight: read-only launch-readiness scan of a local project (BlitzHash Senior Engineer Skills)
 
 Usage: bh-preflight [dir] [--json] [--fail-under N] [--no-color]
+       bh-preflight --demo
 
   dir            Project folder to scan (default: current folder)
   --json         Print machine-readable JSON
   --fail-under N Exit 1 if the score is below N (for CI)
   --no-color     Plain output
+  --demo         Scan a built-in fake app (temp folder, fake keys) to see the report
 
 Checks: hardcoded secrets, secrets behind NEXT_PUBLIC_/VITE_ prefixes, .env in git,
 security headers, rate limits, auth on API routes, Stripe webhook signatures, CORS,
@@ -24,6 +27,7 @@ export async function main(argv, io = { out: console.log, isTTY: process.stdout.
   if (args.includes('-h') || args.includes('--help')) { io.out(HELP); return 0; }
   const json = args.includes('--json');
   const noColor = args.includes('--no-color') || !!process.env.NO_COLOR;
+  if (args.includes('--demo')) { runDemo(io.out, io.isTTY && !noColor); return 0; }
   let failUnder = null;
   const fu = args.indexOf('--fail-under');
   if (fu >= 0) { failUnder = Number(args[fu + 1]); args.splice(fu, 2); if (Number.isNaN(failUnder)) throw new Error('--fail-under needs a number'); }

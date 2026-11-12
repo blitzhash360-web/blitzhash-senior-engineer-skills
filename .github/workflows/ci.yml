@@ -61,6 +61,7 @@ jobs:
       - name: Demo + CLI smoke test
         run: |
           npm run demo
+          node bin/bh-preflight.mjs --demo
           node bin/bh-preflight.mjs --help
           node bin/bh-preflight.mjs . --json > /dev/null
       - name: No secrets committed
