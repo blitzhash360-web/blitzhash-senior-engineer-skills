@@ -8,7 +8,7 @@
 [![Agent Skills](https://img.shields.io/badge/format-SKILL.md-0ea5e9.svg)](https://agentskills.io)
 [![GitHub stars](https://img.shields.io/github/stars/blitzhash360-web/blitzhash-senior-engineer-skills?style=social)](https://github.com/blitzhash360-web/blitzhash-senior-engineer-skills/stargazers)
 
-Seven production skills, two reviewer agents and four slash commands for founders shipping apps built with Lovable, Bolt, Replit, Cursor or v0, plus `bh-preflight`, a read-only scanner that scores your project out of 100 before real users arrive. Install them alongside ECC (or on their own) with one script that shows every file before it writes anything.
+Eight production skills, two reviewer agents and five slash commands for founders shipping apps built with Lovable, Bolt, Replit, Cursor or v0, plus `bh-preflight`, a read-only scanner that scores your project out of 100 before real users arrive. Install them alongside ECC (or on their own) with one script that shows every file before it writes anything.
 
 ![bh-preflight on a fake demo app](assets/preflight-demo.png)
 <sub>`bh-preflight --demo` on a fake demo app. The keys are fake and the scan never leaves your machine.</sub>
@@ -51,6 +51,7 @@ npx -y github:blitzhash360-web/blitzhash-senior-engineer-skills ~/code/my-app
 | `cloudflare-hardening` | SSL Full (strict), HTTPS, TLS 1.2+, WAF rules for `/.env` and `/.git` probes, rate limits, Turnstile, hiding the origin IP, DNSSEC. Uses our [Cloudflare skills CLI](https://github.com/blitzhash360-web/blitzhash-cloudflare-production-skills) with a scoped token. | |
 | `self-hosting-migration` | Decides with numbers whether a VPS or Docker setup pays off, then hardens the server, sets up TLS, backups and monitoring, and plans a staged cutover with rollback. | |
 | `backup-restore-drill` | Inventories what is backed up, restores a fresh dump into a scratch database (never production), times it, and writes `docs/backup-restore.md`. | `/backup-drill` |
+| `stack-radar` | A plain-English "do I need to act?" digest of official advisories, breaking changes and plan or pricing changes in *this* app's stack. | `/stack-radar` |
 
 Agents: `launch-readiness-lead` (runs the whole review and delegates to the skills) and `cost-and-infra-reviewer` (bills, edge, backups, self-hosting).
 
@@ -81,6 +82,8 @@ With `--global` the same folders are used under your home directory (Claude Code
 - **`bh-preflight` only reads files.** No writes, no network, no telemetry.
 
 Details in [docs/SAFETY.md](docs/SAFETY.md).
+
+The `stack-radar` skill is original BlitzHash work, inspired by the *idea* of a recent-changes digest in [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) (MIT). No code from that project is included.
 
 ## Built on ECC
 
@@ -113,9 +116,9 @@ npx markdownlint-cli2
 ```
 
 ```text
-skills/<name>/SKILL.md     7 skills (frontmatter: name, description, license, metadata)
+skills/<name>/SKILL.md     8 skills (frontmatter: name, description, license, metadata)
 agents/*.md                2 reviewer agents
-commands/*.md              4 slash commands
+commands/*.md              5 slash commands
 install.sh                 installer for Claude Code, Cursor, Codex, Qoder, Antigravity, AGENTS.md IDEs
 bin/bh-preflight.mjs       read-only launch-readiness scanner (lib/preflight.mjs)
 examples/                  fake demo app generator + demo

@@ -15,6 +15,7 @@ Production skills, agents and slash commands for founders who build apps with AI
 | Protect the site at the edge | `skills/cloudflare-hardening` | |
 | Move to a VPS / Docker | `skills/self-hosting-migration` | |
 | Prove backups work | `skills/backup-restore-drill` | `/backup-drill` |
+| What changed in my stack? Do I need to act? | `skills/stack-radar` | `/stack-radar` |
 
 ## Non-negotiable safety rules
 

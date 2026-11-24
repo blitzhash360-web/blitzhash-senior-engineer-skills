@@ -28,7 +28,7 @@ The first thing a senior engineer does before real users arrive: find the proble
    ```
 
    It only reads files and prints a score out of 100 with a fix and a follow-up skill for each finding. Secrets are redacted.
-3. **Go deeper where the scan points.** Hand each area to its skill: `production-security-review` (secrets, auth, headers, rate limits), `scaling-performance-review`, `cloud-cost-cutting`, `cloudflare-hardening`, `backup-restore-drill`, `self-hosting-migration`.
+3. **Go deeper where the scan points.** Hand each area to its skill: `production-security-review` (secrets, auth, headers, rate limits), `scaling-performance-review`, `cloud-cost-cutting`, `cloudflare-hardening`, `backup-restore-drill`, `self-hosting-migration`, `stack-radar`.
 4. **Ask about what a scan cannot see.** Ask the user, do not guess: Is there a staging environment? Who can access the production dashboards? Has a backup ever been restored? Is there a spend cap or billing alert on every provider? What happens if the AI provider is down?
 5. **Write the report.** Group findings as **Fix before launch** (data exposure, leaked keys, missing auth, unverified webhooks), **Fix this month** (rate limits, monitoring, backups, headers) and **Nice to have**. One line of plain English per finding: what is wrong, why it matters to the business, the fix, and effort (S/M/L).
 6. **Fix one item at a time, dry run first.** For each item the user picks, show the exact diff or command, wait for "yes", apply, then re-run step 2 and report the score change.
